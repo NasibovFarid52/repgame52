@@ -116,8 +116,14 @@ class GameLevel:
 
     def spawn_door(self):
         """Создает дверь для перехода на следующий уровень"""
-        # Размещаем дверь в правой части экрана
-        door_x = self.player.rect.x + SCREEN_WIDTH - 100
+        # Ищем самую правую платформу для размещения двери
+        rightmost_x = 0
+        for platform in self.platforms:
+            if platform.rect.right > rightmost_x:
+                rightmost_x = platform.rect.right
+
+        # Размещаем дверь на правой платформе
+        door_x = rightmost_x - 60  # Ширина двери 60px
         door_y = SCREEN_HEIGHT - 150
 
         self.door = Door(door_x, door_y)
@@ -147,7 +153,26 @@ class GameLevel:
 
     def restart_level(self):
         """Перезапуск уровня"""
-        self.game.set_scene("game", level_num=self.level_num)
+        # Получаем начальную позицию игрока
+        level_data = load_level(self.level_num)
+        if level_data:
+            start_x, start_y = level_data["player_start"]
+            # Сбрасываем игрока
+            self.player.reset(start_x, start_y)
+            # Сбрасываем пули
+            self.bullets.empty()
+            # Сбрасываем дверь
+            self.door = None
+            self.door_spawned = False
+            # Восстанавливаем диски
+            self.disks.empty()
+            for disk in level_data["disks"]:
+                self.disks.add(Disk(disk["x"], disk["y"]))
+            # Сбрасываем счет
+            self.score = 0
+        else:
+            # Если не удалось загрузить уровень, создаем новую сцену
+            self.game.set_scene("game", level_num=self.level_num)
 
     def complete_level(self):
         """Завершение уровня"""

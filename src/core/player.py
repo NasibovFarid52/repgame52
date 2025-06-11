@@ -82,3 +82,11 @@ class Player(pygame.sprite.Sprite):
         current_time = pygame.time.get_ticks()
         if self.ammo < self.max_ammo and current_time - self.last_shot > self.reload_time:
             self.ammo = self.max_ammo
+
+    def reset(self, x, y):
+        """Сброс состояния игрока при перезапуске уровня"""
+        self.rect.topleft = (x, y)
+        self.velocity = pygame.math.Vector2(0, 0)
+        self.ammo = self.max_ammo
+        self.last_shot = 0
+        self.on_ground = False
