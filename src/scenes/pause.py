@@ -21,10 +21,9 @@ class PauseScene:
                 if self.selected == 0:  # Продолжить
                     self.game.set_scene("game")
                 elif self.selected == 1:  # Начать заново
-                    # Получаем номер текущего уровня
-                    level_num = self.game_scene.level_num
-                    # Создаем новую игровую сцену с тем же уровнем
-                    self.game.set_scene("game", level_num=level_num)
+                    # Полностью перезагружаем текущий уровень
+                    self.game_scene.initialize_level()
+                    self.game.set_scene("game")
                 elif self.selected == 2:  # В главное меню
                     self.game.set_scene("menu")
             elif event.key == pygame.K_ESCAPE:

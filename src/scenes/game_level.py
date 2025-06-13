@@ -32,22 +32,72 @@ class GameLevel:
         self.door_spawned = False
 
         # Загрузка уровня
-        level_data = load_level(level_num)
-        if not level_data:
+        self.level_data = load_level(level_num)
+        if not self.level_data:
             self.game.set_scene("level_select")
             return
 
-        # Наполняем группы из загруженных данных
-        self.platforms = level_data["platforms"]
-        self.enemies = level_data["enemies"]
-        self.disks = level_data["disks"]
-        self.player = Player(*level_data["player_start"])
-
-        # Добавляем объекты в группу спрайтов
-        self.all_sprites.add(self.platforms, self.enemies, self.disks, self.player)
+        # Инициализация уровня
+        self.initialize_level()
 
         # Инициализация счетчиков ПОСЛЕ загрузки уровня
         self.total_disks = len(self.disks)
+
+    def initialize_level(self):
+        """Инициализирует или перезагружает уровень"""
+        # Очищаем группы
+        self.platforms.empty()
+        self.enemies.empty()
+        self.disks.empty()
+        self.all_sprites.empty()
+        self.bullets.empty()
+
+        # Создаем объекты из данных уровня
+        platforms = pygame.sprite.Group()
+        enemies = pygame.sprite.Group()
+        disks = pygame.sprite.Group()
+
+        # Загрузка платформ
+        for plat in self.level_data["platforms"]:
+            p = Platform(
+                plat["x"],
+                plat["y"],
+                plat["width"],
+                plat["height"],
+                plat.get("type", "static")
+            )
+            platforms.add(p)
+
+        # Загрузка врагов
+        for enemy in self.level_data["enemies"]:
+            if enemy["type"] == "rat":
+                e = Rat(enemy["x"], enemy["y"], platforms)
+            elif enemy["type"] == "policeman":
+                e = Policeman(enemy["x"], enemy["y"], platforms, enemy.get("direction", 1))
+            enemies.add(e)
+
+        # Загрузка дисков
+        for disk in self.level_data["disks"]:
+            d = Disk(disk["x"], disk["y"])
+            disks.add(d)
+
+        # Позиция игрока
+        player_start = (self.level_data["player"]["x"], self.level_data["player"]["y"])
+
+        # Наполняем группы
+        self.platforms = platforms
+        self.enemies = enemies
+        self.disks = disks
+        self.player = Player(*player_start)
+
+        # Сбрасываем состояние двери
+        self.door = None
+        self.door_spawned = False
+        self.score = 0
+        self.bullets.empty()
+
+        # Добавляем объекты в группу спрайтов
+        self.all_sprites.add(self.platforms, self.enemies, self.disks, self.player)
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -92,11 +142,15 @@ class GameLevel:
         # Проверка коллизий пуль с игроком
         player_hit = pygame.sprite.spritecollide(self.player, self.bullets, True)
         if player_hit:
-            self.restart_level()
+            # При смерти игрока перезагружаем уровень
+            self.initialize_level()
+            return  # Прерываем дальнейшее обновление в этом кадре
 
         # Проверка коллизий игрока с врагами
         if pygame.sprite.spritecollide(self.player, self.enemies, False):
-            self.restart_level()
+            # При смерти игрока перезагружаем уровень
+            self.initialize_level()
+            return  # Прерываем дальнейшее обновление в этом кадре
 
         # Проверка коллизий игрока с дисками
         disk_hits = pygame.sprite.spritecollide(self.player, self.disks, True)
@@ -150,29 +204,6 @@ class GameLevel:
         screen.blit(score_text, (10, 10))
         screen.blit(ammo_text, (10, 40))
         screen.blit(disks_text, (10, 70))
-
-    def restart_level(self):
-        """Перезапуск уровня"""
-        # Получаем начальную позицию игрока
-        level_data = load_level(self.level_num)
-        if level_data:
-            start_x, start_y = level_data["player_start"]
-            # Сбрасываем игрока
-            self.player.reset(start_x, start_y)
-            # Сбрасываем пули
-            self.bullets.empty()
-            # Сбрасываем дверь
-            self.door = None
-            self.door_spawned = False
-            # Восстанавливаем диски
-            self.disks.empty()
-            for disk in level_data["disks"]:
-                self.disks.add(Disk(disk["x"], disk["y"]))
-            # Сбрасываем счет
-            self.score = 0
-        else:
-            # Если не удалось загрузить уровень, создаем новую сцену
-            self.game.set_scene("game", level_num=self.level_num)
 
     def complete_level(self):
         """Завершение уровня"""
