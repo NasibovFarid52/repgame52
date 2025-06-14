@@ -1,23 +1,67 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, GREEN, BLUE, BLACK
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, GREEN, BLUE, BLACK, IMAGES_PATH
 
 
 class MenuScene:
-    """Главное меню игры (KISS - простой и понятный интерфейс)"""
+    """Главное меню игры с новым дизайном в стиле банданы"""
 
     def __init__(self, game):
         self.game = game
-        self.font = pygame.font.SysFont('Arial', 40)
-        self.title_font = pygame.font.SysFont('Arial', 60)
+
+        # Загрузка фонового изображения
+        self.background = pygame.image.load(IMAGES_PATH + "bandana_2.png")
+
+        # Масштабируем изображение под размер экрана
+        self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
+        # Шрифты
+        self.title_font = pygame.font.SysFont('Arial', 80, bold=True)
+        self.subtitle_font = pygame.font.SysFont('Arial', 40, italic=True)
+        self.option_font = pygame.font.SysFont('Arial', 36)
+        self.hint_font = pygame.font.SysFont('Arial', 20)
+
         self.selected = 0
-        self.options = ["Начать игру", "Выйти"]
+        self.options = ["НАЧАТЬ ИГРУ", "ВЫЙТИ"]
+
+        # Создаем текстуры для кнопок
+        self.button_textures = self.create_button_textures()
+
+        # Анимационные переменные
+        self.title_glow = 0
+        self.glow_direction = 1
+
+    def create_button_textures(self):
+        """Создает текстуры для кнопок с эффектом банданы"""
+        textures = []
+        for i, option in enumerate(self.options):
+            # Создаем поверхность для кнопки
+            button = pygame.Surface((400, 70), pygame.SRCALPHA)
+
+            # Основной цвет кнопки
+            main_color = (41, 50, 65)
+
+            # Отрисовываем кнопку
+            pygame.draw.rect(button, main_color, (0, 0, 400, 70), border_radius=20)
+
+            # Черная рамка
+            pygame.draw.rect(button, (0, 0, 0), (0, 0, 400, 70), 2, border_radius=20)
+
+            # Текст кнопки
+            text_color = (94, 80, 63) if i == self.selected else (234, 224, 213)
+            text = self.option_font.render(option, True, text_color)
+            button.blit(text, (200 - text.get_width() // 2, 35 - text.get_height() // 2))
+
+            textures.append(button)
+        return textures
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 self.selected = (self.selected - 1) % len(self.options)
+                self.button_textures = self.create_button_textures()  # Обновляем текстуры
             elif event.key == pygame.K_DOWN:
                 self.selected = (self.selected + 1) % len(self.options)
+                self.button_textures = self.create_button_textures()  # Обновляем текстуры
             elif event.key == pygame.K_RETURN:
                 if self.selected == 0:  # Начать игру
                     self.game.set_scene("level_select")
@@ -25,26 +69,47 @@ class MenuScene:
                     self.game.quit()
 
     def update(self):
-        # Анимация выбора (можно добавить мигание)
-        pass
+        # Анимация свечения заголовка
+        self.title_glow += 0.05 * self.glow_direction
+        if self.title_glow > 1:
+            self.title_glow = 1
+            self.glow_direction = -1
+        elif self.title_glow < 0:
+            self.title_glow = 0
+            self.glow_direction = 1
 
     def draw(self, screen):
-        # Фон
-        screen.fill(BLACK)
+        # Отрисовка фона
+        if self.background:
+            screen.blit(self.background, (0, 0))
+        else:
+            screen.fill(BLACK)
 
-        # Заголовок
-        title = self.title_font.render("ПЛАТФОРМЕР", True, WHITE)
+        # Эффект затемнения фона
+        overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
+        overlay.fill((0, 0, 0, 200))  # Полупрозрачный черный
+        screen.blit(overlay, (0, 0))
+
+        # Цвета заголовка
+        title_color = (198, 172, 143)
+        glow_color = (94, 80, 63)
+
+        # Отрисовка объёмности букв
+        title = self.title_font.render("BANDANA 2", True, glow_color)
+        screen.blit(title, (SCREEN_WIDTH // 2 - title.get_width() // 2 + 3, 100 + 3))
+
+        # Основной заголовок
+        title = self.title_font.render("BANDANA 2", True, title_color)
         screen.blit(title, (SCREEN_WIDTH // 2 - title.get_width() // 2, 100))
 
-        # Опции меню
-        for i, option in enumerate(self.options):
-            color = GREEN if i == self.selected else BLUE
-            text = self.font.render(option, True, color)
-            screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, 250 + i * 60))
+
+        # Отрисовка кнопок
+        for i, texture in enumerate(self.button_textures):
+            y_pos = 300 + i * 100
+            screen.blit(texture, (SCREEN_WIDTH // 2 - 200, y_pos))
+
 
         # Подсказка управления
-        hint = pygame.font.SysFont('Arial', 20).render(
-            "Управление: Стрелки Вверх/Вниз - выбор, Enter - подтвердить",
-            True, WHITE
-        )
-        screen.blit(hint, (SCREEN_WIDTH // 2 - hint.get_width() // 2, 500))
+        hint = self.hint_font.render("Управление: Стрелки Вверх/Вниз - выбор, Enter - подтвердить", True,
+                                     (180, 180, 180))
+        screen.blit(hint, (SCREEN_WIDTH // 2 - hint.get_width() // 2, SCREEN_HEIGHT - 40))
