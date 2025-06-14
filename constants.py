@@ -14,6 +14,10 @@ BLUE = (0, 120, 255)
 YELLOW = (255, 255, 0)
 BROWN = (139, 69, 19)
 PURPLE = (128, 0, 128)
+Anthracite_grey = (41, 50, 65)
+GREY_BROWN = (94, 80, 63)
+PEARL = (234, 224, 213)
+CREAM_HAKI = (198, 172, 143)
 
 # Физика
 GRAVITY = 0.8

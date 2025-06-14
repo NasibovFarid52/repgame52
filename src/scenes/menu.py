@@ -1,5 +1,6 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, GREEN, BLUE, BLACK, IMAGES_PATH
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, GREEN, BLUE, BLACK, Anthracite_grey, IMAGES_PATH, GREY_BROWN, \
+    PEARL, CREAM_HAKI
 
 
 class MenuScene:
@@ -38,16 +39,16 @@ class MenuScene:
             button = pygame.Surface((400, 70), pygame.SRCALPHA)
 
             # Основной цвет кнопки
-            main_color = (41, 50, 65)
+            main_color = Anthracite_grey
 
             # Отрисовываем кнопку
             pygame.draw.rect(button, main_color, (0, 0, 400, 70), border_radius=20)
 
             # Черная рамка
-            pygame.draw.rect(button, (0, 0, 0), (0, 0, 400, 70), 2, border_radius=20)
+            pygame.draw.rect(button, BLACK, (0, 0, 400, 70), 2, border_radius=20)
 
             # Текст кнопки
-            text_color = (94, 80, 63) if i == self.selected else (234, 224, 213)
+            text_color = GREY_BROWN if i == self.selected else PEARL
             text = self.option_font.render(option, True, text_color)
             button.blit(text, (200 - text.get_width() // 2, 35 - text.get_height() // 2))
 
@@ -91,8 +92,8 @@ class MenuScene:
         screen.blit(overlay, (0, 0))
 
         # Цвета заголовка
-        title_color = (198, 172, 143)
-        glow_color = (94, 80, 63)
+        title_color = CREAM_HAKI
+        glow_color = GREY_BROWN
 
         # Отрисовка объёмности букв
         title = self.title_font.render("BANDANA 2", True, glow_color)
