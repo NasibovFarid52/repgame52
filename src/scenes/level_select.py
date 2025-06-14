@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, Anthracite_grey, IMAGES_PATH, GREY_BROWN, PEARL, \
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, ANTHRACITE_GREY, IMAGES_PATH, GREY_BROWN, PEARL, \
     CREAM_HAKI, GREY
 
 
@@ -42,7 +42,7 @@ class LevelSelectScene:
             button = pygame.Surface((300, 60), pygame.SRCALPHA)
 
             # Основной цвет кнопки
-            main_color = Anthracite_grey
+            main_color = ANTHRACITE_GREY
 
             # Отрисовываем кнопку
             pygame.draw.rect(button, main_color, (0, 0, 300, 60), border_radius=15)

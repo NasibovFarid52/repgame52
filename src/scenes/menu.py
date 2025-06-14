@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, GREEN, BLUE, BLACK, Anthracite_grey, IMAGES_PATH, GREY_BROWN, \
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, ANTHRACITE_GREY, IMAGES_PATH, GREY_BROWN, \
     PEARL, CREAM_HAKI
 
 
@@ -39,7 +39,7 @@ class MenuScene:
             button = pygame.Surface((400, 70), pygame.SRCALPHA)
 
             # Основной цвет кнопки
-            main_color = Anthracite_grey
+            main_color = ANTHRACITE_GREY
 
             # Отрисовываем кнопку
             pygame.draw.rect(button, main_color, (0, 0, 400, 70), border_radius=20)
