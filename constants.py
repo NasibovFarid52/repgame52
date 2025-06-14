@@ -26,7 +26,7 @@ PLAYER_SPEED = 5
 JUMP_FORCE = -15
 
 # Управление
-KEY_JUMP = pygame.K_SPACE
+KEY_JUMPS = [pygame.K_SPACE, pygame.K_w, pygame.K_UP]
 KEY_SHOOT = pygame.K_k
 
 # Пути

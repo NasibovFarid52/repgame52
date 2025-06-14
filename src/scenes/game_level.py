@@ -1,11 +1,10 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, KEY_JUMP, KEY_SHOOT
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, KEY_JUMPS, KEY_SHOOT
 from src.core.player import Player
 from src.utils.helpers import load_progress, save_progress
 from src.utils.level_loader import load_level
 from src.entities.rat import Rat
 from src.entities.policeman import Policeman
-from src.entities.projectile import Projectile
 from src.entities.disk import Disk
 from src.entities.platform import Platform
 from src.entities.door import Door
@@ -103,7 +102,7 @@ class GameLevel:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.game.set_scene("pause")
-            if event.key == KEY_JUMP:
+            if event.key in KEY_JUMPS:
                 self.player.jump()
             if event.key == KEY_SHOOT:
                 bullet = self.player.shoot()

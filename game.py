@@ -10,7 +10,7 @@ from src.utils.helpers import load_progress
 class Game:
     def __init__(self):
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption("Платформер")
+        pygame.display.set_caption("BANDANA 2")
         self.clock = pygame.time.Clock()
         self.running = True
         self.progress = load_progress()
