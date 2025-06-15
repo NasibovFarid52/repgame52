@@ -4,7 +4,6 @@ from constants import PLATFORMS_PATH, SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 class Platform(pygame.sprite.Sprite):
-    """Класс платформы со спрайтами вместо цветных прямоугольников"""
 
     # Загружаем текстуры платформ один раз при инициализации класса
     _textures_loaded = False
