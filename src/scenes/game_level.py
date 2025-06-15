@@ -1,5 +1,6 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, KEY_JUMPS, KEY_SHOOT
+import os
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, KEY_JUMPS, KEY_SHOOT, BACKGROUNDS_PATH
 from src.core.player import Player
 from src.utils.helpers import load_progress, save_progress
 from src.utils.level_loader import load_level
@@ -41,6 +42,17 @@ class GameLevel:
 
         # Инициализация счетчиков ПОСЛЕ загрузки уровня
         self.total_disks = len(self.disks)
+
+        # Загрузка фонового изображения для уровня
+        self.background = None
+        try:
+            # Пытаемся загрузить фоновое изображение для текущего уровня
+            bg_path = os.path.join(BACKGROUNDS_PATH, f"level{level_num}.png")
+            self.background = pygame.image.load(bg_path)
+            # Масштабируем изображение под размер экрана
+            self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+        except Exception as e:
+            print(f"Не удалось загрузить фоновое изображение для уровня {level_num}: {e}")
 
     def initialize_level(self):
         """Инициализирует или перезагружает уровень"""
@@ -184,7 +196,11 @@ class GameLevel:
         self.door_spawned = True
 
     def draw(self, screen):
-        screen.fill(BLACK)
+        # Отрисовка фона
+        if self.background:
+            screen.blit(self.background, (0, 0))
+        else:
+            screen.fill(BLACK)
 
         # Отрисовка всех спрайтов
         for sprite in self.all_sprites:
