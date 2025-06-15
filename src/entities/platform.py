@@ -1,30 +1,88 @@
 import pygame
-from constants import GREEN, BROWN
+import os
+from constants import PLATFORMS_PATH, SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 class Platform(pygame.sprite.Sprite):
-    """Класс платформы (статичной или движущейся)"""
+    """Класс платформы со спрайтами вместо цветных прямоугольников"""
+
+    # Загружаем текстуры платформ один раз при инициализации класса
+    _textures_loaded = False
+    _static_texture = None
+    _moving_texture = None
+
+    @classmethod
+    def load_textures(cls):
+        """Загружает текстуры платформ из файлов"""
+        if not cls._textures_loaded:
+            try:
+                # Загружаем текстуру для статичной платформы
+                cls._static_texture = pygame.image.load(os.path.join(PLATFORMS_PATH, "platform_static.png"))
+                # Загружаем текстуру для движущейся платформы
+                cls._moving_texture = pygame.image.load(os.path.join(PLATFORMS_PATH, "platform_moving.png"))
+
+
+
+                cls._textures_loaded = True
+            except Exception as e:
+                print(f"Ошибка загрузки текстур платформ: {e}")
+                # Если не удалось загрузить, создадим простые цветные плитки
+                cls._static_texture = pygame.Surface((50, 50))
+                cls._static_texture.fill((0, 255, 0))  # Зеленый
+                cls._moving_texture = pygame.Surface((50, 50))
+                cls._moving_texture.fill((139, 69, 19))  # Коричневый
 
     def __init__(self, x, y, width, height, platform_type="static"):
         super().__init__()
-        self.image = pygame.Surface((width, height))
-        if platform_type == "static":
-            self.image.fill(GREEN)  # Статичная платформа - зеленая
-        else:  # moving
-            self.image.fill(BROWN)  # Движущаяся платформа - коричневая
-        self.rect = self.image.get_rect(topleft=(x, y))
+
+        # Загружаем текстуры при первом создании платформы
+        if not Platform._textures_loaded:
+            Platform.load_textures()
+
         self.type = platform_type
+        self.width = width
+        self.height = height
+
+        # Создаем поверхность для платформы
+        self.image = pygame.Surface((width, height), pygame.SRCALPHA)
+
+        # Выбираем текстуру в зависимости от типа платформы
+        texture = Platform._static_texture if platform_type == "static" else Platform._moving_texture
+
+        # Заполняем поверхность плитками
+        tile_size = texture.get_size()[0]
+        for i in range(0, width, tile_size):
+            for j in range(0, height, tile_size):
+                # Определяем размер последней плитки
+                tile_width = min(tile_size, width - i)
+                tile_height = min(tile_size, height - j)
+
+                if tile_width < tile_size or tile_height < tile_size:
+                    # Если это неполная плитка, создаем фрагмент текстуры
+                    tile = pygame.Surface((tile_width, tile_height), pygame.SRCALPHA)
+                    tile.blit(texture, (0, 0), (0, 0, tile_width, tile_height))
+                    self.image.blit(tile, (i, j))
+                else:
+                    # Полная плитка
+                    self.image.blit(texture, (i, j))
+
+        self.rect = self.image.get_rect(topleft=(x, y))
 
         # Для движущихся платформ
-        self.speed = 2
-        self.direction = pygame.math.Vector2(1, 0)  # Направление движения
-        self.distance = 100  # Расстояние, которое проходит платформа
-        self.start_x = x
-        self.start_y = y
+        if platform_type == "moving":
+            self.speed = 2
+            self.direction = pygame.math.Vector2(1, 0)  # Направление движения
+            self.distance = 100  # Расстояние, которое проходит платформа
+            self.start_x = x
+            self.start_y = y
+            self.previous_rect = self.rect.copy()  # Сохраняем предыдущую позицию
 
     def update(self):
         """Обновление позиции движущейся платформы"""
         if self.type == "moving":
+            # Сохраняем текущую позицию как предыдущую перед обновлением
+            self.previous_rect = self.rect.copy()
+
             # Движение вперед и назад по горизонтали
             self.rect.x += self.speed * self.direction.x
 
