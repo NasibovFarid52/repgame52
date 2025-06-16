@@ -129,16 +129,25 @@ class GameLevel:
         # Обновление игрока
         self.player.update(self.platforms)
 
-        # Обновление врагов
+        # Список для новых пуль
+        new_bullets = []
+
+        # Обновление врагов и сбор пуль
         for enemy in self.enemies:
             if isinstance(enemy, Rat):
                 enemy.update()
             elif isinstance(enemy, Policeman):
                 enemy.update()
-                bullet = enemy.shoot()
+
+                # Получаем пулю, если она есть
+                bullet = enemy.get_bullet()
                 if bullet:
-                    self.bullets.add(bullet)
-                    self.all_sprites.add(bullet)
+                    new_bullets.append(bullet)
+
+        # Добавляем все новые пули одновременно
+        for bullet in new_bullets:
+            self.bullets.add(bullet)
+            self.all_sprites.add(bullet)
 
         # Обновление пуль
         self.bullets.update()
