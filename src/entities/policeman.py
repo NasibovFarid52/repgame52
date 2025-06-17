@@ -1,7 +1,7 @@
 import pygame
 import os
-from constants import GRAVITY, ENEMIES_PATH, ENEMY_ANIMATION_SPEED, POLICEMAN_SHOOT_DELAY
-from src.entities.projectile import Projectile  # Добавляем импорт Projectile
+from constants import GRAVITY, ENEMIES_PATH, POLICEMAN_SHOOT_DELAY
+from src.entities.projectile import Projectile
 
 
 class Policeman(pygame.sprite.Sprite):
@@ -22,7 +22,7 @@ class Policeman(pygame.sprite.Sprite):
                 cls._shoot_texture = pygame.image.load(os.path.join(ENEMIES_PATH, "policeman_shoot.png"))
 
                 # Масштабируем до стандартного размера
-                size = (50, 80)
+                size = (60, 80)
                 cls._idle_texture = pygame.transform.scale(cls._idle_texture, size)
                 cls._shoot_texture = pygame.transform.scale(cls._shoot_texture, size)
 
