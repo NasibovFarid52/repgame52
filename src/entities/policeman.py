@@ -5,7 +5,7 @@ from src.entities.projectile import Projectile
 
 
 class Policeman(pygame.sprite.Sprite):
-    """Враг 'Полицейский' с анимацией стрельбы (исправленная версия)"""
+
 
     # Загружаем текстуры один раз при инициализации класса
     _textures_loaded = False
@@ -14,7 +14,7 @@ class Policeman(pygame.sprite.Sprite):
 
     @classmethod
     def load_textures(cls):
-        """Загружает текстуры полицейского из файлов"""
+
         if not cls._textures_loaded:
             try:
                 # Загружаем только 2 кадра: стойка и стрельба
@@ -61,7 +61,7 @@ class Policeman(pygame.sprite.Sprite):
         self.bullet_to_spawn = None
 
     def update(self):
-        """Обновление состояния полицейского"""
+
         # Гравитация
         self.velocity.y += GRAVITY
         self.rect.y += self.velocity.y
@@ -105,7 +105,7 @@ class Policeman(pygame.sprite.Sprite):
                     self.image = pygame.transform.flip(self.image, True, False)
 
     def spawn_bullet(self):
-        """Создает пулю для выстрела"""
+
         # Определяем позицию вылета пули
         if self.direction > 0:
             bullet_x = self.rect.right
@@ -118,7 +118,7 @@ class Policeman(pygame.sprite.Sprite):
         self.bullet_to_spawn = (bullet_x, bullet_y, self.direction)
 
     def get_bullet(self):
-        """Возвращает пулю, если она была создана"""
+
         if self.bullet_to_spawn:
             bullet = Projectile(*self.bullet_to_spawn)
             self.bullet_to_spawn = None

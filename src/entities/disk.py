@@ -4,7 +4,7 @@ from constants import COLLECTIBLES_PATH, YELLOW
 
 
 class Disk(pygame.sprite.Sprite):
-    """Класс собираемого диска"""
+
 
     # Загружаем текстуру один раз при инициализации класса
     _texture_loaded = False
@@ -12,7 +12,7 @@ class Disk(pygame.sprite.Sprite):
 
     @classmethod
     def load_texture(cls):
-        """Загружает текстуру диска из файла"""
+
         if not cls._texture_loaded:
             try:
                 # Загружаем текстуру диска

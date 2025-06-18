@@ -12,7 +12,7 @@ class Platform(pygame.sprite.Sprite):
 
     @classmethod
     def load_textures(cls):
-        """Загружает текстуры платформ из файлов"""
+
         if not cls._textures_loaded:
             try:
                 # Загружаем текстуру для статичной платформы
@@ -77,7 +77,7 @@ class Platform(pygame.sprite.Sprite):
             self.previous_rect = self.rect.copy()  # Сохраняем предыдущую позицию
 
     def update(self):
-        """Обновление позиции движущейся платформы"""
+
         if self.type == "moving":
             # Сохраняем текущую позицию как предыдущую перед обновлением
             self.previous_rect = self.rect.copy()

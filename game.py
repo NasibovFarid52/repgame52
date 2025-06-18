@@ -26,7 +26,6 @@ class Game:
         self.current_scene = "menu"
 
     def run(self):
-        """Главный игровой цикл"""
         while self.running:
             # Обработка событий
             for event in pygame.event.get():
@@ -50,7 +49,6 @@ class Game:
             self.clock.tick(FPS)
 
     def set_scene(self, scene_name, **kwargs):
-        """Переключает сцену"""
         if scene_name == "game":
             level_num = kwargs.get("level_num", self.current_level)
             self.current_level = level_num  # Сохраняем текущий уровень
@@ -75,11 +73,9 @@ class Game:
             self.current_scene = scene_name
 
     def restart_level(self):
-        """Перезапускает текущий уровень"""
         if self.scenes.get("game"):
             level_num = self.scenes["game"].level_num
             self.set_scene("game", level_num=level_num)
 
     def quit(self):
-        """Выход из игры"""
         self.running = False

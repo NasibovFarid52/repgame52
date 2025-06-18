@@ -11,7 +11,7 @@ class Projectile(pygame.sprite.Sprite):
 
     @classmethod
     def load_texture(cls):
-        """Загружает текстуру пули из файла"""
+
         if not cls._textures_loaded:
             try:
                 # Загружаем текстуру пули

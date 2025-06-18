@@ -4,7 +4,7 @@ from constants import DOORS_PATH, PURPLE
 
 
 class Door(pygame.sprite.Sprite):
-    """Класс двери для перехода на следующий уровень"""
+
 
     # Загружаем текстуру один раз при инициализации класса
     _texture_loaded = False
@@ -12,7 +12,7 @@ class Door(pygame.sprite.Sprite):
 
     @classmethod
     def load_texture(cls):
-        """Загружает текстуру двери из файла"""
+
         if not cls._texture_loaded:
             try:
                 # Загружаем текстуру двери

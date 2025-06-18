@@ -55,7 +55,7 @@ class GameLevel:
             print(f"Не удалось загрузить фоновое изображение для уровня {level_num}: {e}")
 
     def initialize_level(self):
-        """Инициализирует или перезагружает уровень"""
+
         # Очищаем группы
         self.platforms.empty()
         self.enemies.empty()
@@ -189,7 +189,7 @@ class GameLevel:
         self.camera_offset.y = self.player.rect.centery - SCREEN_HEIGHT // 2
 
     def spawn_door(self):
-        """Создает дверь для перехода на следующий уровень"""
+
         # Ищем самую правую платформу для размещения двери
         rightmost_x = 0
         for platform in self.platforms:
@@ -230,7 +230,7 @@ class GameLevel:
         screen.blit(disks_text, (10, 70))
 
     def complete_level(self):
-        """Завершение уровня"""
+
         unlocked = self.progress["unlocked"]
         next_level = self.level_num + 1
         if next_level not in unlocked and next_level <= 6:

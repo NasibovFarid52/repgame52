@@ -21,7 +21,7 @@ class LevelSelectScene:
         self.levels = self.get_available_levels()
 
     def get_available_levels(self):
-        """Получаем список доступных уровней"""
+
         progress = self.game.progress
         unlocked = progress["unlocked"]
 

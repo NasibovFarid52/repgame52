@@ -4,7 +4,7 @@ from constants import GRAVITY, BROWN, ENEMIES_PATH
 
 
 class Rat(pygame.sprite.Sprite):
-    """Враг 'Крыса' с анимацией"""
+
 
     # Загружаем текстуры один раз при инициализации класса
     _textures_loaded = False
@@ -63,8 +63,27 @@ class Rat(pygame.sprite.Sprite):
         # Для плавной анимации
         self.animation_counter = 0
 
+
+    def is_on_platform(self):
+
+        # Создаем небольшой прямоугольник под ногами крысы
+        foot_width = 10
+        foot_rect = pygame.Rect(
+            self.rect.centerx - foot_width // 2,
+            self.rect.bottom,
+            foot_width,
+            2
+        )
+
+        # Проверяем, пересекается ли эта область с любой платформой
+        for platform in self.platforms:
+            if foot_rect.colliderect(platform.rect):
+                return True
+
+        return False
+
     def update(self):
-        """Обновление состояния крысы"""
+
         # Гравитация
         self.velocity.y += GRAVITY
         self.rect.y += self.velocity.y
@@ -79,7 +98,7 @@ class Rat(pygame.sprite.Sprite):
         # Движение по платформе
         self.rect.x += self.speed * self.direction
 
-        # Проверка края платформы
+        # Проверка края платформы с учетом ног
         if not self.is_on_platform():
             self.direction *= -1  # Разворот
 
@@ -95,10 +114,3 @@ class Rat(pygame.sprite.Sprite):
             self.image = self.textures_right[self.current_frame]
         else:
             self.image = self.textures_left[self.current_frame]
-
-    def is_on_platform(self):
-        """Проверка, стоит ли крыса на платформе"""
-        # Смещаем rect вниз на 1 пиксель для проверки
-        test_rect = self.rect.copy()
-        test_rect.y += 2
-        return any(platform.rect.colliderect(test_rect) for platform in self.platforms)

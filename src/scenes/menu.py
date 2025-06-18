@@ -3,7 +3,7 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, ANTHRACITE_GREY, IMAGE
 
 
 class MenuScene:
-    """Главное меню игры с новым дизайном в стиле банданы"""
+
 
     def __init__(self, game):
         self.game = game
@@ -31,7 +31,7 @@ class MenuScene:
         self.glow_direction = 1
 
     def create_button_textures(self):
-        """Создает текстуры для кнопок с эффектом банданы"""
+
         textures = []
         for i, option in enumerate(self.options):
             # Создаем поверхность для кнопки

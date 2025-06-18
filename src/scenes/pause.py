@@ -24,7 +24,7 @@ class PauseScene:
         self.button_textures = self.create_button_textures()
 
     def create_button_textures(self):
-        """Создает текстуры для кнопок в стиле bandana"""
+
         textures = []
         for i, option in enumerate(self.options):
             # Создаем поверхность для кнопки

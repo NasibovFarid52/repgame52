@@ -1,5 +1,5 @@
 def apply_gravity(entity, platforms):
-    """Применяет гравитацию и проверяет коллизии (DRY - общая функция)"""
+
     entity.velocity.y += GRAVITY
     entity.rect.y += entity.velocity.y
 
@@ -17,7 +17,7 @@ def apply_gravity(entity, platforms):
 
 
 def check_horizontal_collision(entity, platforms):
-    """Проверяет горизонтальные коллизии"""
+
     entity.rect.x += entity.velocity.x
     collisions = pygame.sprite.spritecollide(entity, platforms, False)
     for platform in collisions:
