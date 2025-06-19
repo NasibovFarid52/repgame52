@@ -1,6 +1,6 @@
 import pygame
 import os
-from constants import PLAYER_SPEED, JUMP_FORCE, GRAVITY, PLAYER_ANIMATION_SPEED, PLAYER_PATH
+from constants import PLAYER_SPEED, JUMP_FORCE, GRAVITY, PLAYER_ANIMATION_SPEED, PLAYER_PATH, SHOOT_COOLDOWN
 from src.entities.projectile import Projectile
 
 
@@ -17,41 +17,24 @@ class Player(pygame.sprite.Sprite):
     def load_textures(cls):
 
         if not cls._textures_loaded:
-            try:
-                # Загружаем текстуры для анимации покоя
-                idle_frame = pygame.image.load(os.path.join(PLAYER_PATH, "idle.png"))
-                cls._idle_textures = [pygame.transform.scale(idle_frame, (50, 60))]
+            # Загружаем текстуры для анимации покоя
+            idle_frame = pygame.image.load(os.path.join(PLAYER_PATH, "idle.png"))
+            cls._idle_textures = [pygame.transform.scale(idle_frame, (50, 60))]
 
-                # Загружаем текстуры для бега
-                cls._run_textures = []
-                for i in range(1, 4):
-                    frame = pygame.image.load(os.path.join(PLAYER_PATH, f"run_{i}.png"))
-                    cls._run_textures.append(pygame.transform.scale(frame, (50, 60)))
+            # Загружаем текстуры для бега
+            cls._run_textures = []
+            for i in range(1, 4):
+                frame = pygame.image.load(os.path.join(PLAYER_PATH, f"run_{i}.png"))
+                cls._run_textures.append(pygame.transform.scale(frame, (50, 60)))
 
-                # Загружаем текстуры для прыжка
-                cls._jump_textures = []
-                for i in range(1, 4):
-                    frame = pygame.image.load(os.path.join(PLAYER_PATH, f"jump_{i}.png"))
-                    cls._jump_textures.append(pygame.transform.scale(frame, (50, 60)))
+            # Загружаем текстуры для прыжка
+            cls._jump_textures = []
+            for i in range(1, 4):
+                frame = pygame.image.load(os.path.join(PLAYER_PATH, f"jump_{i}.png"))
+                cls._jump_textures.append(pygame.transform.scale(frame, (50, 60)))
 
-                cls._textures_loaded = True
-            except Exception as e:
-                print(f"Ошибка загрузки текстур игрока: {e}")
+            cls._textures_loaded = True
 
-                cls._idle_textures = [pygame.Surface((40, 60))]
-                cls._idle_textures[0].fill((0, 255, 0))
-
-                cls._run_textures = []
-                for i in range(3):
-                    surface = pygame.Surface((40, 60))
-                    surface.fill((0, 200 + i * 20, 0))
-                    cls._run_textures.append(surface)
-
-                cls._jump_textures = []
-                for i in range(3):
-                    surface = pygame.Surface((40, 60))
-                    surface.fill((0, 150, i * 30))
-                    cls._jump_textures.append(surface)
 
     def __init__(self, x, y):
         super().__init__()
@@ -103,7 +86,7 @@ class Player(pygame.sprite.Sprite):
 
     def shoot(self):
         current_time = pygame.time.get_ticks()
-        if self.ammo > 0 and current_time - self.last_shot > 300:
+        if self.ammo > 0 and current_time - self.last_shot > SHOOT_COOLDOWN:
             self.ammo -= 1
             self.last_shot = current_time
 

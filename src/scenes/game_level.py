@@ -45,17 +45,15 @@ class GameLevel:
 
         # Загрузка фонового изображения для уровня
         self.background = None
-        try:
-            # Пытаемся загрузить фоновое изображение для текущего уровня
-            bg_path = os.path.join(BACKGROUNDS_PATH, f"level{level_num}.png")
-            self.background = pygame.image.load(bg_path)
-            # Масштабируем изображение под размер экрана
-            self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
-        except Exception as e:
-            print(f"Не удалось загрузить фоновое изображение для уровня {level_num}: {e}")
+
+        # Загрузка фонового изображения
+        bg_path = os.path.join(BACKGROUNDS_PATH, f"level{level_num}.png")
+        self.background = pygame.image.load(bg_path)
+        # Масштабируем изображение под размер экрана
+        self.background = pygame.transform.scale(self.background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+
 
     def initialize_level(self):
-
         # Очищаем группы
         self.platforms.empty()
         self.enemies.empty()

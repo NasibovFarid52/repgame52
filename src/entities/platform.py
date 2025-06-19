@@ -1,6 +1,6 @@
 import pygame
 import os
-from constants import PLATFORMS_PATH, SCREEN_WIDTH, SCREEN_HEIGHT
+from constants import PLATFORMS_PATH
 
 
 class Platform(pygame.sprite.Sprite):
@@ -12,24 +12,13 @@ class Platform(pygame.sprite.Sprite):
 
     @classmethod
     def load_textures(cls):
-
         if not cls._textures_loaded:
-            try:
                 # Загружаем текстуру для статичной платформы
                 cls._static_texture = pygame.image.load(os.path.join(PLATFORMS_PATH, "platform_static.png"))
                 # Загружаем текстуру для движущейся платформы
                 cls._moving_texture = pygame.image.load(os.path.join(PLATFORMS_PATH, "platform_moving.png"))
-
-
-
                 cls._textures_loaded = True
-            except Exception as e:
-                print(f"Ошибка загрузки текстур платформ: {e}")
-                # Если не удалось загрузить, создадим простые цветные плитки
-                cls._static_texture = pygame.Surface((50, 50))
-                cls._static_texture.fill((0, 255, 0))  # Зеленый
-                cls._moving_texture = pygame.Surface((50, 50))
-                cls._moving_texture.fill((139, 69, 19))  # Коричневый
+
 
     def __init__(self, x, y, width, height, platform_type="static"):
         super().__init__()

@@ -92,13 +92,9 @@ class Game:
             if self.scenes.get("game") and self.scenes["game"].level_num == level_num:
                 self.current_scene = "game"
             else:
-                # Создаем новую игровую сцену
-                try:
-                    self.scenes["game"] = GameLevel(self, level_num)
-                    self.current_scene = "game"
-                except Exception as e:
-                    print(f"Ошибка загрузки уровня: {e}")
-                    self.set_scene("level_select")
+                self.scenes["game"] = GameLevel(self, level_num)
+                self.current_scene = "game"
+
 
         elif scene_name == "pause":
             # При паузе передаем текущую игровую сцену

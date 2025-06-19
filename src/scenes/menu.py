@@ -87,7 +87,7 @@ class MenuScene:
 
         # Эффект затемнения фона
         overlay = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.SRCALPHA)
-        overlay.fill((0, 0, 0, 200))  # Полупрозрачный черный
+        overlay.fill((0, 0, 0, 200))
         screen.blit(overlay, (0, 0))
 
         # Цвета заголовка

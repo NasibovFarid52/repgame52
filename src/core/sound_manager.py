@@ -1,5 +1,5 @@
-import pygame
-from constants import SHOOT_SOUND, RAT_DEATH_SOUND, POLICEMAN_DEATH_SOUND, DOOR_ENTER_SOUND
+from pygame import mixer
+from constants import RAT_DEATH_SOUND, POLICEMAN_DEATH_SOUND, DOOR_ENTER_SOUND
 
 class SoundManager:
     def __init__(self):
@@ -8,10 +8,9 @@ class SoundManager:
         self.sound_volume = 0.5
         
     def load_sounds(self):
-        self.sounds["shoot"] = pygame.mixer.Sound(SHOOT_SOUND)
-        self.sounds["rat_death"] = pygame.mixer.Sound(RAT_DEATH_SOUND)
-        self.sounds["policeman_death"] = pygame.mixer.Sound(POLICEMAN_DEATH_SOUND)
-        self.sounds["door_enter"] = pygame.mixer.Sound(DOOR_ENTER_SOUND)
+        self.sounds["rat_death"] = mixer.Sound(RAT_DEATH_SOUND)
+        self.sounds["policeman_death"] = mixer.Sound(POLICEMAN_DEATH_SOUND)
+        self.sounds["door_enter"] = mixer.Sound(DOOR_ENTER_SOUND)
 
     
     def play_sound(self, sound_name):

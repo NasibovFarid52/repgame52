@@ -14,26 +14,16 @@ class Policeman(pygame.sprite.Sprite):
 
     @classmethod
     def load_textures(cls):
-
         if not cls._textures_loaded:
-            try:
-                # Загружаем только 2 кадра: стойка и стрельба
-                cls._idle_texture = pygame.image.load(os.path.join(ENEMIES_PATH, "policeman_idle.png"))
-                cls._shoot_texture = pygame.image.load(os.path.join(ENEMIES_PATH, "policeman_shoot.png"))
+            # Загружаем только 2 кадра: стойка и стрельба
+            cls._idle_texture = pygame.image.load(os.path.join(ENEMIES_PATH, "policeman_idle.png"))
+            cls._shoot_texture = pygame.image.load(os.path.join(ENEMIES_PATH, "policeman_shoot.png"))
+            # Масштабируем до стандартного размера
+            size = (60, 80)
+            cls._idle_texture = pygame.transform.scale(cls._idle_texture, size)
+            cls._shoot_texture = pygame.transform.scale(cls._shoot_texture, size)
+            cls._textures_loaded = True
 
-                # Масштабируем до стандартного размера
-                size = (60, 80)
-                cls._idle_texture = pygame.transform.scale(cls._idle_texture, size)
-                cls._shoot_texture = pygame.transform.scale(cls._shoot_texture, size)
-
-                cls._textures_loaded = True
-            except Exception as e:
-                print(f"Ошибка загрузки текстур полицейского: {e}")
-                # Создаем простые текстуры, если загрузка не удалась
-                cls._idle_texture = pygame.Surface((30, 50))
-                cls._idle_texture.fill((0, 0, 255))  # Синий
-                cls._shoot_texture = pygame.Surface((30, 50))
-                cls._shoot_texture.fill((0, 100, 255))  # Светло-синий
 
     def __init__(self, x, y, platforms, direction=1):
         super().__init__()

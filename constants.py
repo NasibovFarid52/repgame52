@@ -27,6 +27,7 @@ JUMP_FORCE = -15
 ENEMY_ANIMATION_SPEED = 0.2
 POLICEMAN_SHOOT_DELAY = 1000
 PLAYER_ANIMATION_SPEED = 0.15
+SHOOT_COOLDOWN = 300
 
 # Управление
 KEY_JUMPS = [pygame.K_SPACE, pygame.K_w, pygame.K_UP]
@@ -61,7 +62,6 @@ LEVEL_MUSIC = [
 
 # Звуковые эффекты
 SOUNDS_PATH = ASSETS_PATH + "sounds/"
-SHOOT_SOUND = SOUNDS_PATH + "shoot.wav"
 RAT_DEATH_SOUND = SOUNDS_PATH + "rat_death.wav"
 POLICEMAN_DEATH_SOUND = SOUNDS_PATH + "policeman_death.wav"
 DOOR_ENTER_SOUND = SOUNDS_PATH + "door_enter.wav"

@@ -13,20 +13,13 @@ class Projectile(pygame.sprite.Sprite):
     def load_texture(cls):
 
         if not cls._textures_loaded:
-            try:
-                # Загружаем текстуру пули
-                cls._bullet_texture = pygame.image.load(os.path.join(PROJECTILES_PATH, "bullet.png"))
+            # Загружаем текстуру пули
+            cls._bullet_texture = pygame.image.load(os.path.join(PROJECTILES_PATH, "bullet.png"))
+            # Масштабируем до нужного размера
+            width, height = 13, 7
+            cls._bullet_texture = pygame.transform.scale(cls._bullet_texture, (width, height))
+            cls._textures_loaded = True
 
-                # Масштабируем до нужного размера
-                width, height = 13, 7
-                cls._bullet_texture = pygame.transform.scale(cls._bullet_texture, (width, height))
-
-                cls._textures_loaded = True
-            except Exception as e:
-                print(f"Ошибка загрузки текстуры пули: {e}")
-                # Создаем простую пулю, если текстура не загружена
-                cls._bullet_texture = pygame.Surface((20, 10))
-                cls._bullet_texture.fill((255, 0, 0))  # Красный прямоугольник
 
     def __init__(self, x, y, direction):
         super().__init__()
