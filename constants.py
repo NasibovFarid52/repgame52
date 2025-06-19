@@ -49,6 +49,7 @@ PLAYER_PATH = IMAGES_PATH + "player/"
 
 # Музыка
 MUSIC_VOLUME = 0.03
+MUSIC_FADEOUT = 500
 MUSIC_PATH = ASSETS_PATH + "music/"
 MENU_MUSIC = MUSIC_PATH + "menu_music.mp3"
 LEVEL_MUSIC = [

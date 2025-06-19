@@ -3,9 +3,11 @@ from src.scenes.menu import MenuScene
 from src.scenes.level_select import LevelSelectScene
 from src.scenes.game_level import GameLevel
 from src.scenes.pause import PauseScene
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LEVEL_MUSIC, MENU_MUSIC, MUSIC_VOLUME
-from src.utils.helpers import load_progress
+from src.scenes.intro_scene import IntroScene
+from src.scenes.final_scene import FinalScene
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, MENU_MUSIC, LEVEL_MUSIC, BLACK, MUSIC_VOLUME, MUSIC_FADEOUT
 from src.core.sound_manager import SoundManager
+from src.utils.helpers import load_progress
 
 
 class Game:
@@ -15,20 +17,38 @@ class Game:
         self.clock = pygame.time.Clock()
         self.running = True
         self.progress = load_progress()
-        self.current_level = 1  # Добавляем отслеживание текущего уровня
+        self.current_level = 1
+
+        # Звук
+        pygame.mixer.init()
+        self.current_music = None
+        self.volume = self.progress.get("volume", MUSIC_VOLUME)
+        self.sound_manager = SoundManager()
+        self.sound_manager.set_volume(self.volume)
 
         # Инициализация сцен
         self.scenes = {
+            "intro": IntroScene(self),
             "menu": MenuScene(self),
             "level_select": LevelSelectScene(self),
-            "game": None,  # Будет создаваться при загрузке уровня
-            "pause": None  # Будет создаваться при паузе
+            "game": None,
+            "pause": None,
+            "final": FinalScene(self)
         }
-        self.current_scene = "menu"
+        self.current_scene = "intro"
 
-        pygame.mixer.init()
-        self.current_music = None
-        self.sound_manager = SoundManager()
+        # Запускаем музыку для вступительной сцены
+        self.play_music(MENU_MUSIC)
+
+    def play_music(self, music_file):
+        # Плавное затухание текущей музыки
+        if pygame.mixer.music.get_busy():
+            pygame.mixer.music.fadeout(MUSIC_FADEOUT)
+        # Загрузка и воспроизведение новой музыки
+        pygame.mixer.music.load(music_file)
+        pygame.mixer.music.set_volume(self.volume)
+        pygame.mixer.music.play(-1)
+        self.current_music = music_file
 
 
     def set_volume(self, volume):
@@ -36,33 +56,14 @@ class Game:
         pygame.mixer.music.set_volume(volume)
         self.sound_manager.set_volume(volume)
 
-
-    def run(self):
-        while self.running:
-            # Обработка событий
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                # Передаем событие текущей сцене
-                if self.current_scene and self.scenes[self.current_scene]:
-                    self.scenes[self.current_scene].handle_event(event)
-
-            # Обновление текущей сцены
-            if self.current_scene and self.scenes[self.current_scene]:
-                self.scenes[self.current_scene].update()
-
-            # Отрисовка
-            self.screen.fill((0, 0, 0))  # Черный фон
-            if self.current_scene and self.scenes[self.current_scene]:
-                self.scenes[self.current_scene].draw(self.screen)
-
-            pygame.display.flip()
-            self.clock.tick(FPS)
+        # Сохраняем громкость в прогресс
+        self.progress["volume"] = volume
+        from src.utils.helpers import save_progress
+        save_progress(self.progress)
 
     def set_scene(self, scene_name, **kwargs):
-
-        if scene_name in ["menu", "level_select"]:
+        # Определяем музыку для новой сцены
+        if scene_name in ["intro", "menu", "level_select"]:
             new_music = MENU_MUSIC
         elif scene_name == "game":
             level_num = kwargs.get("level_num", self.current_level)
@@ -71,36 +72,38 @@ class Game:
                 new_music = LEVEL_MUSIC[level_num - 1]
             else:
                 new_music = MENU_MUSIC
+        elif scene_name == "final":
+            new_music = MENU_MUSIC
         else:
             new_music = None
 
-        # Меняем музыку только если это новая сцена с другим треком
+        # Меняем музыку только если она отличается от текущей
         if new_music and new_music != self.current_music:
-            # Плавный переход: затухание на 0,5 секунд
-            pygame.mixer.music.fadeout(500)
-            pygame.mixer.music.load(new_music)
-            pygame.mixer.music.set_volume(MUSIC_VOLUME)
-            pygame.mixer.music.play(-1)
-            self.current_music = new_music
+            self.play_music(new_music)
 
-
+        # Обработка конкретных сцен
         if scene_name == "game":
             level_num = kwargs.get("level_num", self.current_level)
-            self.current_level = level_num  # Сохраняем текущий уровень
+            self.current_level = level_num
+            self.scenes["game"] = GameLevel(self, level_num)
 
-            # Если игра уже запущена для этого уровня, просто продолжаем
-            if self.scenes.get("game") and self.scenes["game"].level_num == level_num:
-                self.current_scene = "game"
-            else:
-                self.scenes["game"] = GameLevel(self, level_num)
-                self.current_scene = "game"
+            # Для последнего уровня устанавливаем колбэк на финальную сцену
+            if level_num == 6:
+                self.scenes["game"].on_complete = lambda: self.set_scene("final")
+            self.current_scene = "game"
 
 
         elif scene_name == "pause":
             # При паузе передаем текущую игровую сцену
-            self.scenes["pause"] = PauseScene(self, self.scenes["game"])
-            self.current_scene = "pause"
+            if self.scenes.get("game"):
+                self.scenes["pause"] = PauseScene(self, self.scenes["game"])
+                self.current_scene = "pause"
+
+        elif scene_name == "final":
+            self.current_scene = "final"
+
         else:
+            # Для остальных сцен просто переключаемся
             self.current_scene = scene_name
 
     def restart_level(self):
@@ -110,3 +113,26 @@ class Game:
 
     def quit(self):
         self.running = False
+
+    def run(self):
+        while self.running:
+            # Обработка событий
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+
+                # Передаем событие текущей сцене
+                if self.current_scene and self.scenes.get(self.current_scene):
+                    self.scenes[self.current_scene].handle_event(event)
+
+            # Обновление текущей сцены
+            if self.current_scene and self.scenes.get(self.current_scene):
+                self.scenes[self.current_scene].update()
+
+            # Отрисовка
+            self.screen.fill((BLACK))
+            if self.current_scene and self.scenes.get(self.current_scene):
+                self.scenes[self.current_scene].draw(self.screen)
+
+            pygame.display.flip()
+            self.clock.tick(FPS)

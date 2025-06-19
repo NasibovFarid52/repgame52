@@ -237,15 +237,19 @@ class GameLevel:
         screen.blit(disks_text, (10, 70))
 
     def complete_level(self):
-
-        unlocked = self.progress["unlocked"]
-        next_level = self.level_num + 1
-        if next_level not in unlocked and next_level <= 6:
-            unlocked.append(next_level)
-            self.progress["unlocked"] = unlocked
-            save_progress(self.progress)
-
-        if next_level <= 6:
-            self.game.set_scene("game", level_num=next_level)
+        # Если установлен колбэк, вызываем его
+        if self.on_complete:
+            self.on_complete()
         else:
-            self.game.set_scene("menu")
+            # Обычный переход на следующий уровень
+            unlocked = self.progress["unlocked"]
+            next_level = self.level_num + 1
+            if next_level not in unlocked and next_level <= 6:
+                unlocked.append(next_level)
+                self.progress["unlocked"] = unlocked
+                save_progress(self.progress)
+
+            if next_level <= 6:
+                self.game.set_scene("game", level_num=next_level)
+            else:
+                self.game.set_scene("menu")
