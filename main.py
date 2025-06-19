@@ -3,6 +3,7 @@ from game import Game
 
 def main():
     pygame.init()
+    pygame.mixer.init()
     game = Game()
     game.run()
 

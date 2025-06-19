@@ -77,7 +77,7 @@ class Player(pygame.sprite.Sprite):
         # Параметры стрельбы
         self.ammo = 6
         self.max_ammo = 6
-        self.reload_time = 3000  # 3 секунды на перезарядку
+        self.reload_time = 1500
         self.last_shot = 0
 
     def handle_input(self):
@@ -205,7 +205,6 @@ class Player(pygame.sprite.Sprite):
             self.ammo = self.max_ammo
 
     def reset(self, x, y):
-
         self.rect.topleft = (x, y)
         self.velocity = pygame.math.Vector2(0, 0)
         self.ammo = self.max_ammo

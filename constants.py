@@ -25,7 +25,7 @@ GRAVITY = 0.8
 PLAYER_SPEED = 5
 JUMP_FORCE = -15
 ENEMY_ANIMATION_SPEED = 0.2
-POLICEMAN_SHOOT_DELAY = 2000
+POLICEMAN_SHOOT_DELAY = 1000
 PLAYER_ANIMATION_SPEED = 0.15
 
 # Управление
@@ -45,3 +45,16 @@ DOORS_PATH = IMAGES_PATH + "doors/"
 ENEMIES_PATH = IMAGES_PATH + "enemies/"
 PROJECTILES_PATH = IMAGES_PATH + "projectiles/"
 PLAYER_PATH = IMAGES_PATH + "player/"
+
+# Музыка
+MUSIC_VOLUME = 0.05
+MUSIC_PATH = ASSETS_PATH + "music/"
+MENU_MUSIC = MUSIC_PATH + "menu_music.mp3"
+LEVEL_MUSIC = [
+    MUSIC_PATH + "level1_music.mp3",
+    MUSIC_PATH + "level2_music.mp3",
+    MUSIC_PATH + "level3_music.mp3",
+    MUSIC_PATH + "level4_music.mp3",
+    MUSIC_PATH + "level5_music.mp3",
+    MUSIC_PATH + "level6_music.mp3"
+]

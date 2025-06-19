@@ -1,5 +1,4 @@
 def apply_gravity(entity, platforms):
-
     entity.velocity.y += GRAVITY
     entity.rect.y += entity.velocity.y
 

@@ -3,7 +3,7 @@ from src.scenes.menu import MenuScene
 from src.scenes.level_select import LevelSelectScene
 from src.scenes.game_level import GameLevel
 from src.scenes.pause import PauseScene
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LEVEL_MUSIC, MENU_MUSIC, MUSIC_VOLUME
 from src.utils.helpers import load_progress
 
 
@@ -24,6 +24,9 @@ class Game:
             "pause": None  # Будет создаваться при паузе
         }
         self.current_scene = "menu"
+
+        pygame.mixer.init()
+        self.current_music = None
 
     def run(self):
         while self.running:
@@ -49,6 +52,29 @@ class Game:
             self.clock.tick(FPS)
 
     def set_scene(self, scene_name, **kwargs):
+
+        if scene_name in ["menu", "level_select"]:
+            new_music = MENU_MUSIC
+        elif scene_name == "game":
+            level_num = kwargs.get("level_num", self.current_level)
+            self.current_level = level_num
+            if 1 <= level_num <= len(LEVEL_MUSIC):
+                new_music = LEVEL_MUSIC[level_num - 1]
+            else:
+                new_music = MENU_MUSIC
+        else:
+            new_music = None
+
+        # Меняем музыку только если это новая сцена с другим треком
+        if new_music and new_music != self.current_music:
+            # Плавный переход: затухание на 0,5 секунд
+            pygame.mixer.music.fadeout(500)
+            pygame.mixer.music.load(new_music)
+            pygame.mixer.music.set_volume(MUSIC_VOLUME)
+            pygame.mixer.music.play(-1)
+            self.current_music = new_music
+
+
         if scene_name == "game":
             level_num = kwargs.get("level_num", self.current_level)
             self.current_level = level_num  # Сохраняем текущий уровень
