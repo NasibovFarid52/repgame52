@@ -5,6 +5,7 @@ from src.scenes.game_level import GameLevel
 from src.scenes.pause import PauseScene
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, LEVEL_MUSIC, MENU_MUSIC, MUSIC_VOLUME
 from src.utils.helpers import load_progress
+from src.core.sound_manager import SoundManager
 
 
 class Game:
@@ -27,6 +28,14 @@ class Game:
 
         pygame.mixer.init()
         self.current_music = None
+        self.sound_manager = SoundManager()
+
+
+    def set_volume(self, volume):
+        self.volume = volume
+        pygame.mixer.music.set_volume(volume)
+        self.sound_manager.set_volume(volume)
+
 
     def run(self):
         while self.running:

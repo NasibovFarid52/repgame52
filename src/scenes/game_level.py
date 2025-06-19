@@ -159,6 +159,13 @@ class GameLevel:
                 bullet.kill()
                 self.score += 100
 
+                # Воспроизводим звук смерти врага
+                for enemy in enemy_hits:
+                    if isinstance(enemy, Rat):
+                        self.game.sound_manager.play_sound("rat_death")
+                    elif isinstance(enemy, Policeman):
+                        self.game.sound_manager.play_sound("policeman_death")
+
         # Проверка коллизий пуль с игроком
         player_hit = pygame.sprite.spritecollide(self.player, self.bullets, True)
         if player_hit:
@@ -182,6 +189,9 @@ class GameLevel:
 
         # Проверка коллизии с дверью
         if self.door and pygame.sprite.collide_rect(self.player, self.door):
+
+            # Воспроизводим звук входа в дверь
+            self.game.sound_manager.play_sound("door_enter")
             self.complete_level()
 
         # Обновление камеры

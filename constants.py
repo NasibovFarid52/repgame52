@@ -47,7 +47,7 @@ PROJECTILES_PATH = IMAGES_PATH + "projectiles/"
 PLAYER_PATH = IMAGES_PATH + "player/"
 
 # Музыка
-MUSIC_VOLUME = 0.05
+MUSIC_VOLUME = 0.03
 MUSIC_PATH = ASSETS_PATH + "music/"
 MENU_MUSIC = MUSIC_PATH + "menu_music.mp3"
 LEVEL_MUSIC = [
@@ -58,3 +58,10 @@ LEVEL_MUSIC = [
     MUSIC_PATH + "level5_music.mp3",
     MUSIC_PATH + "level6_music.mp3"
 ]
+
+# Звуковые эффекты
+SOUNDS_PATH = ASSETS_PATH + "sounds/"
+SHOOT_SOUND = SOUNDS_PATH + "shoot.wav"
+RAT_DEATH_SOUND = SOUNDS_PATH + "rat_death.wav"
+POLICEMAN_DEATH_SOUND = SOUNDS_PATH + "policeman_death.wav"
+DOOR_ENTER_SOUND = SOUNDS_PATH + "door_enter.wav"
