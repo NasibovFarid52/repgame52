@@ -189,16 +189,15 @@ class GameLevel:
         self.camera_offset.y = self.player.rect.centery - SCREEN_HEIGHT // 2
 
     def spawn_door(self):
-
-        # Ищем самую правую платформу для размещения двери
-        rightmost_x = 0
+        # Находим последнюю платформу
+        last_platform = None
         for platform in self.platforms:
-            if platform.rect.right > rightmost_x:
-                rightmost_x = platform.rect.right
+            if last_platform is None or platform.rect.y < last_platform.rect.y:
+                last_platform = platform
 
-        # Размещаем дверь на правой платформе
-        door_x = rightmost_x - 60  # Ширина двери 60px
-        door_y = SCREEN_HEIGHT - 150
+        # Создаем дверь в конце уровня
+        door_x = last_platform.rect.x + last_platform.rect.width // 2 - 30
+        door_y = last_platform.rect.y - 100
 
         self.door = Door(door_x, door_y)
         self.all_sprites.add(self.door)

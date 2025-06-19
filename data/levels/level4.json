@@ -1,0 +1,298 @@
+{
+  "player": {
+    "x": 400,
+    "y": 500
+  },
+  "platforms": [
+    {
+      "x": 0,
+      "y": 550,
+      "width": 800,
+      "height": 50,
+      "type": "static"
+    },
+    {
+      "x": 291,
+      "y": 450,
+      "width": 159,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 462,
+      "y": 343,
+      "width": 164,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 512,
+      "y": 237,
+      "width": 166,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 420,
+      "y": 126,
+      "width": 128,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 306,
+      "y": 16,
+      "width": 179,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 392,
+      "y": -85,
+      "width": 139,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 311,
+      "y": -182,
+      "width": 171,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 166,
+      "y": -290,
+      "width": 106,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 302,
+      "y": -389,
+      "width": 152,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 435,
+      "y": -481,
+      "width": 176,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 537,
+      "y": -582,
+      "width": 180,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 489,
+      "y": -678,
+      "width": 117,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 576,
+      "y": -779,
+      "width": 174,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 637,
+      "y": -870,
+      "width": 113,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 598,
+      "y": -972,
+      "width": 152,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 608,
+      "y": -1061,
+      "width": 142,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 434,
+      "y": -1155,
+      "width": 142,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 261,
+      "y": -1252,
+      "width": 119,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 53,
+      "y": -1341,
+      "width": 169,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 180,
+      "y": -1437,
+      "width": 119,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 334,
+      "y": -1537,
+      "width": 150,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 168,
+      "y": -1625,
+      "width": 163,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 248,
+      "y": -1709,
+      "width": 120,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 50,
+      "y": -1805,
+      "width": 162,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 50,
+      "y": -1904,
+      "width": 139,
+      "height": 20,
+      "type": "static"
+    }
+  ],
+  "enemies": [
+    {
+      "type": "policeman",
+      "x": 370,
+      "y": 370,
+      "direction": -1
+    },
+    {
+      "type": "rat",
+      "x": 544,
+      "y": 313
+    },
+    {
+      "type": "rat",
+      "x": 484,
+      "y": 96
+    },
+    {
+      "type": "rat",
+      "x": 395,
+      "y": -14
+    },
+    {
+      "type": "rat",
+      "x": 219,
+      "y": -320
+    },
+    {
+      "type": "policeman",
+      "x": 378,
+      "y": -469,
+      "direction": -1
+    },
+    {
+      "type": "rat",
+      "x": 523,
+      "y": -511
+    },
+    {
+      "type": "rat",
+      "x": 627,
+      "y": -612
+    },
+    {
+      "type": "policeman",
+      "x": 547,
+      "y": -758,
+      "direction": -1
+    },
+    {
+      "type": "policeman",
+      "x": 663,
+      "y": -859,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 693,
+      "y": -900
+    },
+    {
+      "type": "policeman",
+      "x": 674,
+      "y": -1052,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 505,
+      "y": -1185
+    },
+    {
+      "type": "policeman",
+      "x": 320,
+      "y": -1332,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 137,
+      "y": -1371
+    },
+    {
+      "type": "policeman",
+      "x": 239,
+      "y": -1517,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 409,
+      "y": -1567
+    }
+  ],
+  "disks": [
+    {
+      "x": 595,
+      "y": 207
+    },
+    {
+      "x": 461,
+      "y": -115
+    },
+    {
+      "x": 378,
+      "y": -419
+    }
+  ]
+}

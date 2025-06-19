@@ -1,0 +1,358 @@
+{
+  "player": {
+    "x": 400,
+    "y": 500
+  },
+  "platforms": [
+    {
+      "x": 0,
+      "y": 550,
+      "width": 800,
+      "height": 50,
+      "type": "static"
+    },
+    {
+      "x": 391,
+      "y": 450,
+      "width": 154,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 252,
+      "y": 348,
+      "width": 131,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 166,
+      "y": 231,
+      "width": 117,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 275,
+      "y": 130,
+      "width": 128,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 165,
+      "y": 16,
+      "width": 165,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 344,
+      "y": -91,
+      "width": 153,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 440,
+      "y": -194,
+      "width": 173,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 557,
+      "y": -289,
+      "width": 155,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 396,
+      "y": -391,
+      "width": 129,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 506,
+      "y": -488,
+      "width": 141,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 360,
+      "y": -587,
+      "width": 162,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 445,
+      "y": -685,
+      "width": 106,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 243,
+      "y": -788,
+      "width": 145,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 374,
+      "y": -891,
+      "width": 114,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 465,
+      "y": -987,
+      "width": 159,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 352,
+      "y": -1078,
+      "width": 171,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 533,
+      "y": -1172,
+      "width": 105,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 478,
+      "y": -1266,
+      "width": 106,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 362,
+      "y": -1352,
+      "width": 116,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 531,
+      "y": -1451,
+      "width": 111,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 581,
+      "y": -1548,
+      "width": 169,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 515,
+      "y": -1646,
+      "width": 170,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 594,
+      "y": -1735,
+      "width": 156,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 627,
+      "y": -1814,
+      "width": 123,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 528,
+      "y": -1902,
+      "width": 141,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 355,
+      "y": -1986,
+      "width": 125,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 473,
+      "y": -2069,
+      "width": 122,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 526,
+      "y": -2161,
+      "width": 136,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 601,
+      "y": -2251,
+      "width": 149,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 442,
+      "y": -2331,
+      "width": 139,
+      "height": 20,
+      "type": "static"
+    }
+  ],
+  "enemies": [
+    {
+      "type": "rat",
+      "x": 468,
+      "y": 420
+    },
+    {
+      "type": "policeman",
+      "x": 317,
+      "y": 268,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 224,
+      "y": 201
+    },
+    {
+      "type": "rat",
+      "x": 339,
+      "y": 100
+    },
+    {
+      "type": "policeman",
+      "x": 247,
+      "y": -64,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 420,
+      "y": -121
+    },
+    {
+      "type": "rat",
+      "x": 526,
+      "y": -224
+    },
+    {
+      "type": "policeman",
+      "x": 576,
+      "y": -568,
+      "direction": -1
+    },
+    {
+      "type": "policeman",
+      "x": 441,
+      "y": -667,
+      "direction": -1
+    },
+    {
+      "type": "rat",
+      "x": 498,
+      "y": -715
+    },
+    {
+      "type": "rat",
+      "x": 315,
+      "y": -818
+    },
+    {
+      "type": "rat",
+      "x": 431,
+      "y": -921
+    },
+    {
+      "type": "rat",
+      "x": 544,
+      "y": -1017
+    },
+    {
+      "type": "policeman",
+      "x": 437,
+      "y": -1158,
+      "direction": -1
+    },
+    {
+      "type": "rat",
+      "x": 585,
+      "y": -1202
+    },
+    {
+      "type": "rat",
+      "x": 531,
+      "y": -1296
+    },
+    {
+      "type": "rat",
+      "x": 420,
+      "y": -1382
+    },
+    {
+      "type": "rat",
+      "x": 586,
+      "y": -1481
+    },
+    {
+      "type": "policeman",
+      "x": 665,
+      "y": -1628,
+      "direction": -1
+    },
+    {
+      "type": "policeman",
+      "x": 688,
+      "y": -1894,
+      "direction": -1
+    },
+    {
+      "type": "rat",
+      "x": 598,
+      "y": -1932
+    },
+    {
+      "type": "rat",
+      "x": 417,
+      "y": -2016
+    }
+  ],
+  "disks": [
+    {
+      "x": 224,
+      "y": 201
+    },
+    {
+      "x": 420,
+      "y": -121
+    },
+    {
+      "x": 460,
+      "y": -421
+    }
+  ]
+}

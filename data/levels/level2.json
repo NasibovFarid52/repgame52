@@ -1,28 +1,196 @@
 {
-    "player": {
-        "x": 100,
-        "y": 500
+  "player": {
+    "x": 400,
+    "y": 500
+  },
+  "platforms": [
+    {
+      "x": 0,
+      "y": 550,
+      "width": 800,
+      "height": 50,
+      "type": "static"
     },
-    "platforms": [
-        {"x": 0, "y": 580, "width": 800, "height": 20, "type": "static"},
-        {"x": 100, "y": 500, "width": 100, "height": 20, "type": "static"},
-        {"x": 250, "y": 450, "width": 100, "height": 20, "type": "static"},
-        {"x": 400, "y": 400, "width": 100, "height": 20, "type": "static"},
-        {"x": 550, "y": 350, "width": 100, "height": 20, "type": "static"},
-        {"x": 200, "y": 300, "width": 150, "height": 20, "type": "moving"},
-        {"x": 500, "y": 250, "width": 100, "height": 20, "type": "static"},
-        {"x": 300, "y": 200, "width": 200, "height": 20, "type": "moving"}
-    ],
-    "enemies": [
-        {"type": "rat", "x": 150, "y": 480},
-        {"type": "rat", "x": 300, "y": 430},
-        {"type": "policeman", "x": 450, "y": 380, "direction": -1},
-        {"type": "policeman", "x": 600, "y": 330, "direction": 1},
-        {"type": "rat", "x": 250, "y": 280}
-    ],
-    "disks": [
-        {"x": 130, "y": 470},
-        {"x": 280, "y": 420},
-        {"x": 580, "y": 320}
-    ]
+    {
+      "x": 383,
+      "y": 450,
+      "width": 161,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 250,
+      "y": 348,
+      "width": 175,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 396,
+      "y": 232,
+      "width": 108,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 570,
+      "y": 119,
+      "width": 132,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 586,
+      "y": 4,
+      "width": 164,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 459,
+      "y": -92,
+      "width": 159,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 348,
+      "y": -202,
+      "width": 151,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 304,
+      "y": -298,
+      "width": 119,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 382,
+      "y": -392,
+      "width": 133,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 201,
+      "y": -493,
+      "width": 153,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 346,
+      "y": -599,
+      "width": 122,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 480,
+      "y": -695,
+      "width": 158,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 376,
+      "y": -785,
+      "width": 116,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 431,
+      "y": -884,
+      "width": 152,
+      "height": 20,
+      "type": "static"
+    },
+    {
+      "x": 312,
+      "y": -983,
+      "width": 162,
+      "height": 20,
+      "type": "static"
+    }
+  ],
+  "enemies": [
+    {
+      "type": "policeman",
+      "x": 463,
+      "y": 370,
+      "direction": -1
+    },
+    {
+      "type": "rat",
+      "x": 337,
+      "y": 318
+    },
+    {
+      "type": "rat",
+      "x": 450,
+      "y": 202
+    },
+    {
+      "type": "rat",
+      "x": 636,
+      "y": 89
+    },
+    {
+      "type": "policeman",
+      "x": 538,
+      "y": -172,
+      "direction": 1
+    },
+    {
+      "type": "policeman",
+      "x": 363,
+      "y": -378,
+      "direction": 1
+    },
+    {
+      "type": "policeman",
+      "x": 448,
+      "y": -472,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 277,
+      "y": -523
+    },
+    {
+      "type": "rat",
+      "x": 407,
+      "y": -629
+    },
+    {
+      "type": "policeman",
+      "x": 559,
+      "y": -775,
+      "direction": 1
+    },
+    {
+      "type": "rat",
+      "x": 507,
+      "y": -914
+    }
+  ],
+  "disks": [
+    {
+      "x": 450,
+      "y": 202
+    },
+    {
+      "x": 538,
+      "y": -122
+    },
+    {
+      "x": 448,
+      "y": -422
+    }
+  ]
 }
