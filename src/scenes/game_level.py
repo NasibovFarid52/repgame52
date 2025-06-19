@@ -16,6 +16,7 @@ class GameLevel:
         self.game = game
         self.level_num = level_num
         self.progress = load_progress()
+        self.on_complete = None
 
         # Создаем группы заранее
         self.platforms = pygame.sprite.Group()

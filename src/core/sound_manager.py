@@ -5,7 +5,7 @@ class SoundManager:
     def __init__(self):
         self.sounds = {}
         self.load_sounds()
-        self.sound_volume = 0.5
+        self.sound_volume = 0.35
         
     def load_sounds(self):
         self.sounds["rat_death"] = mixer.Sound(RAT_DEATH_SOUND)
