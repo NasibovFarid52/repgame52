@@ -36,7 +36,7 @@ class Rat(pygame.sprite.Sprite):
 
         self.platforms = platforms
         self.speed = 2
-        self.direction = 1  # 1 - вправо, -1 - влево
+        self.direction = 1
         self.velocity = pygame.math.Vector2(0, 0)
 
         # Анимационные параметры
@@ -87,7 +87,7 @@ class Rat(pygame.sprite.Sprite):
 
         # Проверка края платформы с учетом ног
         if not self.is_on_platform():
-            self.direction *= -1  # Разворот
+            self.direction *= -1
 
         # Обновление анимации
         self.animation_counter += self.animation_speed

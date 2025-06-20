@@ -1,6 +1,6 @@
 import pygame
 import os
-from constants import GRAVITY, ENEMIES_PATH, POLICEMAN_SHOOT_DELAY
+from constants import GRAVITY, ENEMIES_PATH, POLICEMAN_SHOOT_DELAY, ENEMY_ANIMATION_SPEED
 from src.entities.projectile import Projectile
 
 
@@ -84,7 +84,7 @@ class Policeman(pygame.sprite.Sprite):
 
         elif self.state == "shooting":
             # Проверяем, закончилась ли анимация стрельбы
-            if current_time - self.shoot_start_time > 300:  # 0.3 секунды для показа кадра стрельбы
+            if current_time - self.shoot_start_time > ENEMY_ANIMATION_SPEED:
                 self.state = "idle"
                 self.last_shot_time = current_time
                 self.is_shooting = False
@@ -102,7 +102,7 @@ class Policeman(pygame.sprite.Sprite):
         else:
             bullet_x = self.rect.left
 
-        bullet_y = self.rect.centery
+        bullet_y = self.rect.top
 
         # Создаем пулю
         self.bullet_to_spawn = (bullet_x, bullet_y, self.direction)

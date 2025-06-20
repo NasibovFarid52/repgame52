@@ -16,7 +16,7 @@ class Disk(pygame.sprite.Sprite):
             # Загружаем текстуру диска
             cls._disk_texture = pygame.image.load(os.path.join(COLLECTIBLES_PATH, "disk.png"))
             # Масштабируем до нужного размера
-            size = 30  # Размер диска в пикселях
+            size = 30
             cls._disk_texture = pygame.transform.scale(cls._disk_texture, (size, size))
             cls._texture_loaded = True
 

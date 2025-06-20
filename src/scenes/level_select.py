@@ -35,7 +35,7 @@ class LevelSelectScene:
         ]
 
     def create_button_textures(self):
-        """Создает текстуры для кнопок уровней"""
+
         textures = []
         for i, level in enumerate(self.levels):
             # Создаем поверхность для кнопки
@@ -56,7 +56,7 @@ class LevelSelectScene:
                 text_color = PEARL if i != self.selected else GREY_BROWN
                 text = self.option_font.render(level["name"], True, text_color)
             else:
-                text_color = GREY  # Серый для заблокированных
+                text_color = GREY
                 text = self.option_font.render("Заблокировано", True, text_color)
 
             button.blit(text, (150 - text.get_width() // 2, 30 - text.get_height() // 2))

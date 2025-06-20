@@ -8,15 +8,12 @@ class Platform(pygame.sprite.Sprite):
     # Загружаем текстуры платформ один раз при инициализации класса
     _textures_loaded = False
     _static_texture = None
-    _moving_texture = None
 
     @classmethod
     def load_textures(cls):
         if not cls._textures_loaded:
                 # Загружаем текстуру для статичной платформы
                 cls._static_texture = pygame.image.load(os.path.join(PLATFORMS_PATH, "platform_static.png"))
-                # Загружаем текстуру для движущейся платформы
-                cls._moving_texture = pygame.image.load(os.path.join(PLATFORMS_PATH, "platform_moving.png"))
                 cls._textures_loaded = True
 
 
@@ -34,8 +31,8 @@ class Platform(pygame.sprite.Sprite):
         # Создаем поверхность для платформы
         self.image = pygame.Surface((width, height), pygame.SRCALPHA)
 
-        # Выбираем текстуру в зависимости от типа платформы
-        texture = Platform._static_texture if platform_type == "static" else Platform._moving_texture
+        # Выбираем текстуру
+        texture = Platform._static_texture
 
         # Заполняем поверхность плитками
         tile_size = texture.get_size()[0]
@@ -53,27 +50,8 @@ class Platform(pygame.sprite.Sprite):
                 else:
                     # Полная плитка
                     self.image.blit(texture, (i, j))
-
         self.rect = self.image.get_rect(topleft=(x, y))
 
-        # Для движущихся платформ
-        if platform_type == "moving":
-            self.speed = 2
-            self.direction = pygame.math.Vector2(1, 0)  # Направление движения
-            self.distance = 100  # Расстояние, которое проходит платформа
-            self.start_x = x
-            self.start_y = y
-            self.previous_rect = self.rect.copy()  # Сохраняем предыдущую позицию
 
     def update(self):
-
-        if self.type == "moving":
-            # Сохраняем текущую позицию как предыдущую перед обновлением
-            self.previous_rect = self.rect.copy()
-
-            # Движение вперед и назад по горизонтали
-            self.rect.x += self.speed * self.direction.x
-
-            # Если платформа прошла заданное расстояние, меняем направление
-            if abs(self.rect.x - self.start_x) > self.distance:
-                self.direction.x *= -1
+        pass

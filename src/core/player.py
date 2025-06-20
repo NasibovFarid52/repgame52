@@ -92,7 +92,7 @@ class Player(pygame.sprite.Sprite):
 
             # Создаем пулю с отступом от игрока
             direction = 1 if self.facing_right else -1
-            offset = 25  # Отступ, чтобы пуля не появлялась внутри игрока
+            offset = 15  # Отступ, чтобы пуля не появлялась внутри игрока
 
             if self.facing_right:
                 bullet_x = self.rect.right + offset
